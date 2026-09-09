@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Local-Swap Options</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --card-bg: #1e1e1e;
+      --border-color: #333333;
+      
+      /* Extracted from Local Swap.png */
+      --logo-teal: #62a88d;
+      --logo-orange: #db6443;
+      
+      --button-bg: var(--logo-orange);
+      --button-hover: #c45739;
+      --status-good: var(--logo-teal);
+      --status-missing: #f44336;
+      --status-info: #ffffff;
+      --muted: #9a9a9a;
+      --radius: 6px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      width: 380px;
+      margin: 0 auto;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---- Header ---- */
+    .header {
+      /* Applying a gradient to mimic the intertwined colors of the logo */
+      background: linear-gradient(135deg, var(--logo-teal) 0%, var(--logo-orange) 100%);
+      padding: 16px;
+    }
+    .header h1 {
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header h1 .badge {
+      background: #121212;
+      color: #ffffff;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 99px;
+    }
+    .header .subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      margin-top: 4px;
+      font-size: 12px;
+    }
+
+    /* ---- Content ---- */
+    .content {
+      flex: 1;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* ---- Rule list ---- */
+    .rule-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .rule-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 8px 10px;
+    }
+    .rule-pair { flex: 1; display: flex; align-items: center; gap: 6px; min-width: 0; }
+    .rule-host {
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 3px 7px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 11px;
+      color: var(--status-info);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 130px;
+    }
+    
+    /* Using the logo orange for the connecting arrows */
+    .arrow { color: var(--logo-orange); font-size: 12px; flex-shrink: 0; }
+    
+    .btn-delete {
+      background: none;
+      border: none;
+      color: var(--status-missing);
+      cursor: pointer;
+      font-size: 15px;
+      line-height: 1;
+      padding: 2px 4px;
+      flex-shrink: 0;
+    }
+    .btn-delete:hover { opacity: 0.75; }
+
+    .empty {
+      color: var(--muted);
+      text-align: center;
+      padding: 16px 8px;
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius);
+      font-size: 12px;
+    }
+
+    /* ---- Add form ---- */
+    .add-form {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .field label {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 3px;
+    }
+    input[type="text"] {
+      width: 100%;
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      color: var(--text-color);
+      padding: 8px 10px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    input[type="text"]:focus { border-color: var(--button-bg); }
+
+    .btn-add {
+      margin-top: 4px;
+      background: var(--button-bg);
+      color: #121212;
+      border: none;
+      border-radius: var(--radius);
+      padding: 9px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .btn-add:hover { background: var(--button-hover); }
+
+    .feedback { font-size: 11px; min-height: 14px; margin-top: 4px; }
+    .feedback.error { color: var(--status-missing); }
+    .feedback.ok { color: var(--status-good); }
+
+    .hint {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+    .hint code {
+      color: var(--status-info);
+      background: var(--card-bg);
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Local-Swap <span class="badge">MVP</span></h1>
+    <p class="subtitle">Click the extension icon on any page to jump to its mapped twin.</p>
+  </div>
+
+  <div class="content">
+    <div id="ruleList" class="rule-list"></div>
+
+    <div class="add-form">
+      <div class="field">
+        <label for="srcHost">Environment A (e.g. production-app.com)</label>
+        <input type="text" id="srcHost" placeholder="myapp.com" autocomplete="off" spellcheck="false" />
+      </div>
+      <div class="field">
+        <label for="dstHost">Environment B (e.g. localhost:3000)</label>
+        <input type="text" id="dstHost" placeholder="localhost:3000" autocomplete="off" spellcheck="false" />
+      </div>
+      <button id="btnAdd" class="btn-add">+ Add mapping</button>
+      <div id="feedback" class="feedback"></div>
+    </div>
+
+    <p class="hint">
+      💡 Include the port for localhost (e.g. <code>localhost:5173</code>). Paths, query params, and hash fragments are preserved automatically on swap.
+    </p>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
