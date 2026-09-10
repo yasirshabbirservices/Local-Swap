@@ -37,7 +37,7 @@ If we update this policy, we will revise the "Last updated" date. We encourage y
 
 ## Contact
 
-If you have questions about this privacy policy, please open an issue on the [GitHub repository](https://github.com/your-username/local-swap).
+If you have questions about this privacy policy, please open an issue on the [GitHub repository](https://github.com/yasirshabbirservices/local-swap).
 
 ---
 

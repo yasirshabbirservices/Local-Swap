@@ -1,6 +1,10 @@
 # Local-Swap
 
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install-blue)](https://chromewebstore.google.com/detail/jloijjnoiielijinemcjomklklabhbhc)
+
 A lightweight, open-source browser extension (Chrome Manifest V3) for web developers that instantly jumps between equivalent pages on different environments — local dev, staging, and production — without manually editing URLs.
+
+**Install now from the [Chrome Web Store](https://chromewebstore.google.com/detail/jloijjnoiielijinemcjomklklabhbhc).**
 
 ## The Problem
 
@@ -65,7 +69,15 @@ local-swap/
     └── icon128.png
 ```
 
-## Installation (Developer Mode)
+## Installation
+
+### From the Chrome Web Store (recommended)
+
+1. Visit the [Local-Swap listing](https://chromewebstore.google.com/detail/jloijjnoiielijinemcjomklklabhbhc).
+2. Click **Add to Chrome**.
+3. (Optional) Pin Local-Swap to the toolbar via the puzzle-piece menu.
+
+### Developer Mode (for testing or development)
 
 1. Clone or download this repository.
 2. Open Chrome and navigate to `chrome://extensions`.
