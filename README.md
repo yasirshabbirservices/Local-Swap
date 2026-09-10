@@ -57,6 +57,7 @@ local-swap/
 ├── background.js      # Service worker: URL swap logic + click/shortcut handlers
 ├── options.html       # Options page UI (rule manager, toggles, import/export)
 ├── options.js         # Options page logic (storage sync, validation, import/export)
+├── PRIVACY.md         # Privacy policy
 └── icons/
     ├── icon16.png
     ├── icon32.png
@@ -93,15 +94,23 @@ The tab navigates to the mapped environment with path, query, and hash intact. N
 - **Toggling:** Use the toggle switch next to any rule to temporarily disable it without deleting it. Inactive rules are ignored during swaps.
 - **Exporting/Importing:** Use the top action bar buttons in the options page to backup your settings or share standard team configurations via JSON files.
 
-## Permissions
+## Permissions Justifications (for Chrome Web Store)
 
-| Permission | Why it's needed |
-|------------|----------------|
-| `activeTab` | Read the current tab's URL and navigate it, only in response to your explicit click/shortcut gesture |
-| `storage`   | Persist mapping rules and toggles via `chrome.storage.sync` |
-| `tabs`      | Access `tab.url` reliably and perform the tab update |
+When publishing, you'll need to provide justifications for each permission. Here are ready‑to‑copy explanations:
 
-No remote code, no analytics, no network requests — your rules never leave your browser's sync storage.
+| Permission | Justification |
+|------------|---------------|
+| **`activeTab`** | The extension reads the URL of the currently active tab **only** when the user clicks the toolbar icon or presses the keyboard shortcut. It then navigates that same tab to the swapped URL. This is a direct user‑initiated action and no data is collected or sent anywhere. |
+| **`storage`**   | The extension stores user‑created environment mappings (hostname pairs) and their active/inactive states using `chrome.storage.sync`. This allows the rules to persist across browser sessions and sync across signed‑in Chrome browsers. No personal data is stored — only hostnames that the user explicitly adds. |
+| **`tabs`**      | The extension needs `tabs` permission to: (1) listen for tab activation and URL changes so it can update the badge icon (green checkmark or no badge) to indicate if the current page matches a mapping; (2) actually perform the navigation to the swapped URL. This is used solely for UI feedback and the core swap functionality. |
+
+### Single Purpose Description
+
+*"Local‑Swap lets web developers instantly switch between equivalent pages on different environments (local, staging, production) by swapping the hostname while preserving the full path, query string, and hash. The extension is purely a developer productivity tool and does not collect, transmit, or store any personal information."*
+
+## Privacy
+
+Local‑Swap does **not** collect, store, or transmit any personal data. All configuration (mapping rules) is stored locally in your browser's sync storage. No network requests are made except for the normal page navigation that you initiate. For full details, see [PRIVACY.md](./PRIVACY.md).
 
 ## Contributing
 
