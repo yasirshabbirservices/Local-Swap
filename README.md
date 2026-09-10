@@ -122,7 +122,7 @@ When publishing, you'll need to provide justifications for each permission. Here
 
 ## Privacy
 
-Local‑Swap does **not** collect, store, or transmit any personal data. All configuration (mapping rules) is stored locally in your browser's sync storage. No network requests are made except for the normal page navigation that you initiate. For full details, see [PRIVACY.md](/PRIVACY.md).
+Local‑Swap does **not** collect, store, or transmit any personal data. All configuration (mapping rules) is stored locally in your browser's sync storage. No network requests are made except for the normal page navigation that you initiate. For full details, see [PRIVACY.md](https://github.com/yasirshabbirservices/Local-Swap/blob/53c691dcfaff8fadddfdfc594db63d08485eb173/privacy.md).
 
 ## Contributing
 
